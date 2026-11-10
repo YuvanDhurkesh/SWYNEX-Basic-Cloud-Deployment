@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CloudNotes Lite</title>
+  <meta name="description" content="CloudNotes Lite: a static notes app deployed on Amazon S3 and CloudFront for the SWYNEX Cloud Computing Internship, Task 2.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="favicon.svg" alt="" width="28" height="28">
+      <span>CloudNotes <em>Lite</em></span>
+    </div>
+    <span class="badge" id="host-badge" title="Where this page was served from">Served by Amazon CloudFront</span>
+  </header>
+
+  <main class="layout">
+    <section class="panel editor" aria-labelledby="editor-title">
+      <h1 id="editor-title">Write a note</h1>
+      <form id="note-form" autocomplete="off">
+        <input type="hidden" id="note-id">
+        <label for="note-title">Title</label>
+        <input id="note-title" maxlength="80" required placeholder="e.g. Deployment checklist">
+        <label for="note-body">Note</label>
+        <textarea id="note-body" rows="7" maxlength="2000" required placeholder="Type your note here..."></textarea>
+        <div class="actions">
+          <button type="submit" class="primary" id="save-btn">Save note</button>
+          <button type="button" class="ghost" id="cancel-btn" hidden>Cancel edit</button>
+        </div>
+      </form>
+      <p class="hint">Notes are stored in this browser's local storage. The backend from the Task 1 design (API Gateway, Lambda, DynamoDB) is a later phase.</p>
+    </section>
+
+    <section class="panel notes" aria-labelledby="notes-title">
+      <div class="notes-head">
+        <h2 id="notes-title">Your notes <span class="count" id="note-count">0</span></h2>
+        <input type="search" id="search" placeholder="Search notes" aria-label="Search notes">
+      </div>
+      <ul id="note-list" class="note-list"></ul>
+      <p id="empty" class="empty">No notes yet. Write one to get started.</p>
+    </section>
+
+    <section class="panel deploy" aria-labelledby="deploy-title">
+      <h2 id="deploy-title">How this page reached you</h2>
+      <ol class="flow">
+        <li><strong>Your browser</strong> requests the site over HTTPS.</li>
+        <li><strong>Amazon CloudFront</strong> serves it from the nearest edge location, or fetches it from the origin on a cache miss.</li>
+        <li><strong>Origin Access Control</strong> signs that fetch, so only this distribution can read the bucket.</li>
+        <li><strong>Amazon S3</strong> holds the files in a private bucket in <code>ap-south-1</code> (Mumbai), with all public access blocked.</li>
+      </ol>
+      <dl class="facts">
+        <dt>Page host</dt><dd id="fact-host">-</dd>
+        <dt>Protocol</dt><dd id="fact-proto">-</dd>
+        <dt>Build</dt><dd id="fact-build">-</dd>
+      </dl>
+    </section>
+  </main>
+
+  <footer class="footer">
+    SWYNEX Technologies, Cloud Computing Internship, Task 2: Basic Cloud Deployment
+  </footer>
+
+  <script src="build.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
